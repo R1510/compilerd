@@ -298,6 +298,43 @@ const testCases = [
             error: 0,
         },
     },
+     // Boundary Conditions
+    {
+        name: 'python : large output',
+        reqObject: {
+            language: 'python',
+            script:
+                'print("a" * 1000000)',
+        },
+        expectedResponse: {
+            val: 'a'.repeat(1000000) + '\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    // Repeat similar cases for other languages (Cpp, Node.js, C, Java, Ruby)...
+
+    // Stress Testing
+    {
+        name: 'cpp : high computational task',
+        reqObject: {
+            language: 'cpp',
+            script:
+                '#include<bits/stdc++.h>\n' +
+                'using namespace std;\n' +
+                'int main(){\n' +
+                '    long long sum = 0;\n' +
+                '    for(long long i = 0; i < 1e9; ++i) sum += i;\n' +
+                '    cout << sum;\n' +
+                '    return 0;\n' +
+                '}\n',
+        },
+        expectedResponse: {
+            val: (1e9 * (1e9 - 1) / 2).toString(),
+            status: 200,
+            error: 0,
+        },
+    },
 ]
 
 module.exports = { testCases }
